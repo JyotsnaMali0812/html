@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Server Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
+        button {
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #output {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>JavaScript Object Manipulation</h1>
+
+    <div class="form-group">
+        <label for="name">Change Name:</label>
+        <input type="text" id="name" placeholder="Enter new name">
+    </div>
+
+    <div class="form-group">
+        <label for="email">Update Email:</label>
+        <input type="email" id="email" placeholder="Enter new email">
+    </div>
+
+    <div class="form-group">
+        <label for="age">Update Age:</label>
+        <input type="number" id="age" placeholder="Enter new age">
+    </div>
+
+    <button onclick="updateUser()">Update User</button>
+    <button onclick="showBirthYear()">Calculate Birth Year</button>
+
+    <div id="output"></div>
+
+    <script>
+        // Create a user object
+        let user = {
+            name: "John Doe",
+            email: "john.doe@example.com",
+            age: 30
+        };
+
+        // Function to change the name of the user
+        function changeName(newName) {
+            user.name = newName;
+        }
+
+        // Function to update the email of the user
+        function updateEmail(newEmail) {
+            user.email = newEmail;
+        }
+
+        // Function to update the age of the user
+        function updateAge(newAge) {
+            user.age = newAge;
+        }
+
+        // Function to calculate the user's birth year
+        function calculateBirthYear() {
+            const currentYear = new Date().getFullYear();
+            return currentYear - user.age;
+        }
+
+        // Function to update the user based on input values
+        function updateUser() {
+            const nameInput = document.getElementById("name").value;
+            const emailInput = document.getElementById("email").value;
+            const ageInput = document.getElementById("age").value;
+
+            if (nameInput) {
+                changeName(nameInput);
+            }
+            if (emailInput) {
+                updateEmail(emailInput);
+            }
+            if (ageInput) {
+                updateAge(parseInt(ageInput));
+            }
+
+            displayUser();
+        }
+
+        // Function to display the user's birth year
+        function showBirthYear() {
+            const birthYear = calculateBirthYear();
+            document.getElementById("output").innerText = `User's birth year: ${birthYear}`;
+        }
+
+        // Function to display the user object
+        function displayUser() {
+            document.getElementById("output").innerText = `Updated user: ${JSON.stringify(user, null, 2)}`;
+        }
+
+        // Initial display of the user object
+        displayUser();
+    </script>
+</body>
+</html>
