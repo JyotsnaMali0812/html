@@ -1,0 +1,121 @@
+<html lang="en">
+
+3
+
+7
+
+ml
+
+8
+
+ml
+
+11
+
+12
+
+13
+
+<head>
+
+<script>
+
+function getDateTime()
+
+var url = "http://date.jsontest.com/";
+
+var req;
+
+if(window.XMLHttpRequest)
+
+14
+
+{
+
+15
+
+req new XMLHttpRequest();
+
+16
+
+17
+
+} else if (window.ActiveXObject)
+
+18
+
+19
+
+{
+
+20
+
+req = new ActiveXObject("Microsoft.XMLHTTP");
+
+21
+
+}
+
+Codeium: Refactor | Explain | Generate Function Comment X req.onreadystatechange function()
+
+22
+
+23
+
+24
+
+if(req.readyState 4 && req.status= 200)
+
+25
+
+{ var jsonobj 3SON.parse(req.responseText); document.getElementById("time").innerHTML jsonobj.time; document.getElementById("date").innerHTML= jsonobj.date;
+
+26
+
+27
+
+28
+
+29
+
+}
+
+30
+
+}
+
+31
+
+req.open("GET", url, true);
+
+I
+
+32
+
+req.send(null);
+
+33
+
+34
+
+35
+
+</head>
+
+36 <body>
+
+37 Date: <span id="date"></span><br>
+
+38
+
+39 <button type "button" onclick="getDateTime()">Get Date and Time</button>
+
+40
+
+</body>
+
+41 </html>
+
+ITUNE
+
+</script>
