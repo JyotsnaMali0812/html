@@ -3,141 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Email Validation Example</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 20px;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        input {
-            width: 100%;
-            padding: 8px;
-            box-sizing: border-box;
-        }
-        button {
-            padding: 10px 15px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        #output {
-            margin-top: 20px;
-        }
-        .error {
-            color: red;
-        }
-    </style>
+    <title>Email Validation</title>
 </head>
 <body>
-    <h1>Email Validation Example</h1>
-
-    <div class="form-group">
-        <label for="name">Change Name:</label>
-        <input type="text" id="name" placeholder="Enter new name">
-    </div>
-
-    <div class="form-group">
-        <label for="email">Update Email:</label>
-        <input type="email" id="email" placeholder="Enter new email">
-        <span id="email-error" class="error"></span>
-    </div>
-
-    <div class="form-group">
-        <label for="age">Update Age:</label>
-        <input type="number" id="age" placeholder="Enter new age">
-    </div>
-
-    <button onclick="updateUser()">Update User</button>
-    <button onclick="showBirthYear()">Calculate Birth Year</button>
-
-    <div id="output"></div>
+    <h2>Enter your name and email</h2>
+    <form id="userForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required><br><br>
+        
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email" required><br><br>
+        
+        <input type="submit" value="Submit">
+    </form>
+    
+    <p id="message" style="color: red;"></p>
 
     <script>
-        // Create a user object
-        let user = {
-            name: "John Doe",
-            email: "john.doe@example.com",
-            age: 30
-        };
+        document.getElementById('userForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
 
-        // Function to change the name of the user
-        function changeName(newName) {
-            user.name = newName;
-        }
+            const emailInput = document.getElementById('email').value;
+            const messageElement = document.getElementById('message');
 
-        // Function to update the email of the user
-        function updateEmail(newEmail) {
-            user.email = newEmail;
-        }
-
-        // Function to update the age of the user
-        function updateAge(newAge) {
-            user.age = newAge;
-        }
-
-        // Function to calculate the user's birth year
-        function calculateBirthYear() {
-            const currentYear = new Date().getFullYear();
-            return currentYear - user.age;
-        }
-
-        // Function to validate email using regular expressions
-        function isValidEmail(email) {
+            // Simple email validation regex
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return emailRegex.test(email);
-        }
 
-        // Function to update the user based on input values
-        function updateUser() {
-            const nameInput = document.getElementById("name").value;
-            const emailInput = document.getElementById("email").value;
-            const ageInput = document.getElementById("age").value;
+            // Clear any previous message
+            messageElement.textContent = '';
 
-            let emailError = document.getElementById("email-error");
-            emailError.textContent = ''; // Clear previous error message
-
-            if (nameInput) {
-                changeName(nameInput);
+            if (!emailInput) {
+                messageElement.textContent = 'Email cannot be empty';
+            } else if (!emailRegex.test(emailInput)) {
+                messageElement.textContent = 'Invalid email format';
+            } else {
+                messageElement.textContent = 'Email is valid';
             }
-            if (emailInput) {
-                if (isValidEmail(emailInput)) {
-                    updateEmail(emailInput);
-                } else {
-                    emailError.textContent = 'Invalid email format.';
-                    return; // Exit the function if the email is invalid
-                }
-            }
-            if (ageInput) {
-                updateAge(parseInt(ageInput));
-            }
-
-            displayUser();
-        }
-
-        // Function to display the user's birth year
-        function showBirthYear() {
-            const birthYear = calculateBirthYear();
-            document.getElementById("output").innerText = `User's birth year: ${birthYear}`;
-        }
-
-        // Function to display the user object
-        function displayUser() {
-            document.getElementById("output").innerText = `Updated user: ${JSON.stringify(user, null, 2)}`;
-        }
-
-        // Initial display of the user object
-        displayUser();
+        });
     </script>
 </body>
 </html>
