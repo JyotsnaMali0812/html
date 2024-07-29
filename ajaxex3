@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    function getData()
+    {
+
+    
+    var url= "https://api.example.com/data";
+    var req;
+    if(window.XMLHttpRequest)
+    {
+    req=new XMLHttpRequest;
+    }
+    else if(window.ActiveXObject){
+        req=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    req.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var jsonobj=JSON.parse(req.responseText);
+            document.getElementById("userId").innerHTML =jsonobj.USERID;
+            document.getElementBy("id").innerHTML =jsonobj.ID;
+            document.getElementBy("title").innerHTML =jsonobj.TITLE;
+            document.getElementBy("body").innerHTML =jsonobj.BODY;
+
+
+       }
+    }
+    req.open("GET",url,true);
+    req.send(null);
+}
+</script>
+<body>
+    USERID : <span id ="userId"></span>
+    ID : <span id="id"></span>
+    TITLE : <span id="title"></span>
+    BODY : <span id="body"></span>
+
+    <button type="button" onclick="getData()">Get data </button>
+</body>
+</html>
