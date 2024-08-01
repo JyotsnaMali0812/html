@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Authentication</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #333;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 40px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            max-width: 400px;
+            width: 100%;
+            margin: 20px;
+        }
+
+        h2 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #007BFF; /* Primary brand color */
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #007BFF;
+            outline: none;
+        }
+
+        .form-text {
+            font-size: 14px;
+            color: #6c757d;
+            margin-top: -15px;
+            margin-bottom: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Additional Styles for Consistency */
+        .container form {
+            margin-bottom: 30px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 500px) {
+            .container {
+                padding: 30px;
+                max-width: 90%;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            input, button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <form action="/register" method="POST" id="registrationForm" aria-labelledby="registrationFormLabel">
+            <h2 id="registrationFormLabel">Register</h2>
+
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" required aria-required="true" aria-describedby="usernameHelp">
+            <span id="usernameHelp" class="form-text">Your username must be unique.</span>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required aria-required="true" aria-describedby="emailHelp">
+            <span id="emailHelp" class="form-text">Please enter a valid email address.</span>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required aria-required="true" aria-describedby="passwordHelp">
+            <span id="passwordHelp" class="form-text">Password must be at least 8 characters long.</span>
+
+            <button type="submit">Register</button>
+        </form>
+
+        <form action="/login" method="POST" id="loginForm" aria-labelledby="loginFormLabel">
+            <h2 id="loginFormLabel">Login</h2>
+
+            <label for="loginUsername">Username:</label>
+            <input type="text" id="loginUsername" name="username" required aria-required="true">
+
+            <label for="loginPassword">Password:</label>
+            <input type="password" id="loginPassword" name="password" required aria-required="true">
+
+            <button type="submit">Login</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            let password = document.getElementById('password').value;
+            if (password.length < 8) {
+                alert('Password must be at least 8 characters long.');
+                event.preventDefault();
+            }
+        });
+
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            let username = document.getElementById('loginUsername').value;
+            let password = document.getElementById('loginPassword').value;
+
+            if (username.trim() === '' || password.trim() === '') {
+                alert('Both fields are required.');
+                event.preventDefault();
+            }
+        });
+    </script>
+</body>
+</html>
