@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Authentication</title>
+    <title>Registration Form</title>
     <style>
         /* General Styles */
         body {
-            font-family: 'Helvetica Neue', Arial, sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -18,78 +18,76 @@
         }
 
         .container {
-            background-color: #fff;
+            width: 100%;
+            max-width: 400px;
+            margin: 0 auto;
             padding: 40px;
+            border: 1px solid #ddd;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
-            max-width: 400px;
-            width: 100%;
-            margin: 20px;
-        }
-
-        h2 {
-            font-size: 28px;
-            margin-bottom: 20px;
-            color: #007BFF; /* Primary brand color */
+            background-color: #ffffff;
             text-align: center;
         }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #007BFF; /* Primary brand color */
         }
 
-        input {
+        table {
             width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: 1px solid #ddd;
+        }
+
+        td {
+            padding: 12px 0;
+        }
+
+        label {
+            display: inline-block;
+            width: 100px;
+            text-align: right;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="password"], input[type="email"] {
+            width: calc(100% - 120px);
+            padding: 10px;
+            border: 1px solid #ccc;
             border-radius: 5px;
             box-sizing: border-box;
             font-size: 16px;
-            transition: border-color 0.3s ease;
         }
 
-        input:focus {
+        input[type="text"]:focus, input[type="password"]:focus, input[type="email"]:focus {
             border-color: #007BFF;
             outline: none;
         }
 
-        .form-text {
-            font-size: 14px;
-            color: #6c757d;
-            margin-top: -15px;
-            margin-bottom: 15px;
+        .submit {
+            width: 100%;
+            padding: 12px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit:hover {
+            background-color: #0056b3;
         }
 
         .error {
             color: #dc3545; /* Red color for errors */
             font-size: 14px;
-            margin-top: -15px;
-            margin-bottom: 15px;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #007BFF;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: background-color 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #0056b3;
-        }
-
-        /* Additional Styles for Consistency */
-        .container form {
-            margin-bottom: 30px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            display: none;
         }
 
         /* Responsive Design */
@@ -99,8 +97,8 @@
                 max-width: 90%;
             }
 
-            h2 {
-                font-size: 24px;
+            h1 {
+                font-size: 20px;
             }
 
             input, button {
@@ -111,139 +109,101 @@
 </head>
 <body>
     <div class="container">
-        <!-- Registration Form -->
-        <form action="/register" method="POST" id="registrationForm" aria-labelledby="registrationFormLabel">
-            <h2 id="registrationFormLabel">Register</h2>
-
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required aria-required="true" aria-describedby="usernameHelp">
-            <span id="usernameHelp" class="form-text">Your username must be unique.</span>
-            <span id="usernameError" class="error"></span>
-
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required aria-required="true" aria-describedby="emailHelp">
-            <span id="emailHelp" class="form-text">Please enter a valid email address.</span>
-            <span id="emailError" class="error"></span>
-
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required aria-required="true" aria-describedby="passwordHelp">
-            <span id="passwordHelp" class="form-text">Password must be at least 8 characters long.</span>
-            <span id="passwordError" class="error"></span>
-
-            <button type="submit">Register</button>
-        </form>
-
-        <!-- Login Form -->
-        <form action="/login" method="POST" id="loginForm" aria-labelledby="loginFormLabel">
-            <h2 id="loginFormLabel">Login</h2>
-
-            <label for="loginUsername">Username:</label>
-            <input type="text" id="loginUsername" name="username" required aria-required="true">
-            <span id="loginUsernameError" class="error"></span>
-
-            <label for="loginPassword">Password:</label>
-            <input type="password" id="loginPassword" name="password" required aria-required="true">
-            <span id="loginPasswordError" class="error"></span>
-
-            <button type="submit">Login</button>
+        <h1>Registration Form</h1>
+        <form name="registration" class="registration-form" onsubmit="return formValidation()">
+            <table>
+                <tr>
+                    <td><label for="name">Name:</label></td>
+                    <td>
+                        <input type="text" name="name" id="name" placeholder="Your name">
+                        <span id="nameError" class="error">Name is required.</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="email">Email:</label></td>
+                    <td>
+                        <input type="email" name="email" id="email" placeholder="Your email">
+                        <span id="emailError" class="error">Enter a valid email address.</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="password">Password:</label></td>
+                    <td>
+                        <input type="password" name="password" id="password" placeholder="Your password">
+                        <span id="passwordError" class="error">Password must be at least 8 characters.</span>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><input type="submit" class="submit" value="Register" /></td>
+                </tr>
+            </table>
         </form>
     </div>
 
     <script>
-        // Function to validate email format
-        function validateEmail(email) {
-            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            return re.test(String(email).toLowerCase());
+        function formValidation() {
+            let isValid = true;
+
+            // Name validation
+            const name = document.getElementById('name').value;
+            const nameError = document.getElementById('nameError');
+            if (name.trim() === '') {
+                nameError.style.display = 'block';
+                isValid = false;
+            } else {
+                nameError.style.display = 'none';
+            }
+
+            // Email validation
+            const email = document.getElementById('email').value;
+            const emailError = document.getElementById('emailError');
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(email)) {
+                emailError.style.display = 'block';
+                isValid = false;
+            } else {
+                emailError.style.display = 'none';
+            }
+
+            // Password validation
+            const password = document.getElementById('password').value;
+            const passwordError = document.getElementById('passwordError');
+            if (password.length < 8) {
+                passwordError.style.display = 'block';
+                isValid = false;
+            } else {
+                passwordError.style.display = 'none';
+            }
+
+            return isValid;
         }
 
-        // Registration Form Validation
-        document.getElementById('registrationForm').addEventListener('submit', function(event) {
-            let valid = true;
-
-            // Username Validation
-            const username = document.getElementById('username').value;
-            if (username.trim() === '') {
-                valid = false;
-                document.getElementById('usernameError').textContent = 'Username is required.';
+        // Real-time validation listeners
+        document.getElementById('name').addEventListener('input', function() {
+            const nameError = document.getElementById('nameError');
+            if (this.value.trim() === '') {
+                nameError.style.display = 'block';
             } else {
-                document.getElementById('usernameError').textContent = '';
-            }
-
-            // Email Validation
-            const email = document.getElementById('email').value;
-            if (!validateEmail(email)) {
-                valid = false;
-                document.getElementById('emailError').textContent = 'Please enter a valid email address.';
-            } else {
-                document.getElementById('emailError').textContent = '';
-            }
-
-            // Password Validation
-            const password = document.getElementById('password').value;
-            if (password.length < 8) {
-                valid = false;
-                document.getElementById('passwordError').textContent = 'Password must be at least 8 characters long.';
-            } else {
-                document.getElementById('passwordError').textContent = '';
-            }
-
-            if (!valid) {
-                event.preventDefault(); // Prevent form submission if validation fails
-            }
-        });
-
-        // Login Form Validation
-        document.getElementById('loginForm').addEventListener('submit', function(event) {
-            let valid = true;
-
-            // Username Validation
-            const username = document.getElementById('loginUsername').value;
-            if (username.trim() === '') {
-                valid = false;
-                document.getElementById('loginUsernameError').textContent = 'Username is required.';
-            } else {
-                document.getElementById('loginUsernameError').textContent = '';
-            }
-
-            // Password Validation
-            const password = document.getElementById('loginPassword').value;
-            if (password.trim() === '') {
-                valid = false;
-                document.getElementById('loginPasswordError').textContent = 'Password is required.';
-            } else {
-                document.getElementById('loginPasswordError').textContent = '';
-            }
-
-            if (!valid) {
-                event.preventDefault(); // Prevent form submission if validation fails
-            }
-        });
-
-        // Real-time validation for registration form
-        document.getElementById('username').addEventListener('input', function() {
-            const username = this.value;
-            if (username.trim() === '') {
-                document.getElementById('usernameError').textContent = 'Username is required.';
-            } else {
-                document.getElementById('usernameError').textContent = '';
+                nameError.style.display = 'none';
             }
         });
 
         document.getElementById('email').addEventListener('input', function() {
-            const email = this.value;
-            if (!validateEmail(email)) {
-                document.getElementById('emailError').textContent = 'Please enter a valid email address.';
+            const emailError = document.getElementById('emailError');
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailPattern.test(this.value)) {
+                emailError.style.display = 'block';
             } else {
-                document.getElementById('emailError').textContent = '';
+                emailError.style.display = 'none';
             }
         });
 
         document.getElementById('password').addEventListener('input', function() {
-            const password = this.value;
-            if (password.length < 8) {
-                document.getElementById('passwordError').textContent = 'Password must be at least 8 characters long.';
+            const passwordError = document.getElementById('passwordError');
+            if (this.value.length < 8) {
+                passwordError.style.display = 'block';
             } else {
-                document.getElementById('passwordError').textContent = '';
+                passwordError.style.display = 'none';
             }
         });
     </script>
