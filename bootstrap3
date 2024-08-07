@@ -3,47 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Policy Dashboard</title>
+    <title>Simple Policy Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
     <!-- Navbar -->
     <nav class="navbar navbar-dark bg-dark">
-        <span class="navbar-brand">Policy Dashboard</span>
+        <a class="navbar-brand" href="#">Policy Dashboard</a>
     </nav>
 
     <!-- Main Content -->
     <div class="container mt-4">
         <button class="btn btn-primary mb-3" onclick="sortPolicies()">Sort Policies</button>
         <ul id="policyList" class="list-group">
-            <li class="list-group-item" onclick="showDetails('Policy A')">Policy A</li>
-            <li class="list-group-item" onclick="showDetails('Policy C')">Policy C</li>
-            <li class="list-group-item" onclick="showDetails('Policy B')">Policy B</li>
+            <li class="list-group-item" onclick="showDetails('Policy A Details')">Policy A</li>
+            <li class="list-group-item" onclick="showDetails('Policy C Details')">Policy C</li>
+            <li class="list-group-item" onclick="showDetails('Policy B Details')">Policy B</li>
         </ul>
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="policyModal">
+    <div class="modal fade" id="policyModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Policy Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
                 <div class="modal-body" id="policyDetails"></div>
-                <button class="btn btn-secondary mt-3" data-bs-dismiss="modal">Close</button>
             </div>
         </div>
     </div>
 
+    <!-- Bootstrap and JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
+        // Sort policies alphabetically
         function sortPolicies() {
-            const list = document.getElementById('policyList');
-            Array.from(list.children)
+            const policyList = document.getElementById('policyList');
+            Array.from(policyList.children)
                 .sort((a, b) => a.textContent.localeCompare(b.textContent))
-                .forEach(item => list.appendChild(item));
+                .forEach(item => policyList.appendChild(item));
         }
 
-        function showDetails(policyName) {
-            document.getElementById('policyDetails').textContent = `Details for ${policyName}`;
+        // Show policy details in modal
+        function showDetails(details) {
+            document.getElementById('policyDetails').textContent = details;
             new bootstrap.Modal(document.getElementById('policyModal')).show();
         }
     </script>
