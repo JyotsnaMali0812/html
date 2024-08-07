@@ -1,0 +1,29 @@
+package com.insurance.servlet;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class ClaimServlet extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        // Retrieve form data
+        String claimantName = request.getParameter("claimantName");
+        String policyNumber = request.getParameter("policyNumber");
+        String claimDetails = request.getParameter("claimDetails");
+
+        // Print to console (for simplicity)
+        System.out.println("Claimant Name: " + claimantName);
+        System.out.println("Policy Number: " + policyNumber);
+        System.out.println("Claim Details: " + claimDetails);
+
+        // Forward to a confirmation JSP
+        request.setAttribute("claimantName", claimantName);
+        request.getRequestDispatcher("/confirmation.jsp").forward(request, response);
+    }
+}
