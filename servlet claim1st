@@ -1,0 +1,84 @@
+Insurance Claim Program
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<form action = "Claim" method ="post">
+Claim Number : <input type = "text" name = "claimnumber">
+Description : <input type = "text" name = "description">
+<input type = "submit" value = "claim">
+</form>
+</body>
+</html>
+ 
+ 
+ 
+Claim.java(Servlet)
+ 
+import java.io.IOException;
+import java.io.PrintWriter;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+ 
+ 
+/**
+* Servlet implementation class ClaimInsurance
+*/
+public class Claim extends HttpServlet {
+ 
+     /**
+      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+      */
+     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+               
+               // TODO Auto-generated method stub
+               int claimnumber = Integer.parseInt(request.getParameter("claimnumber"));
+               String description = request.getParameter("description");
+               response.setContentType("text/html");
+               PrintWriter out = response.getWriter();             
+               if(claimnumber!=0)
+               {
+              out.println("<html>");
+              out.println("<head> <title>Insurance Claim Submitted</title></head>");
+              out.println("<body>");
+              out.println("<h1> Claim Submitted Successfully</h1>");
+              out.println("<p> Claim Number :"+claimnumber+"</p>");              
+              out.println("<p> Description :"+description+"</p>");
+              out.println("</body>");
+              out.println("</html");
+           }
+           else
+           {
+                out.println("Sorry Claim Rejected");
+           }
+}
+}
+ 
+Web.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="https://jakarta.ee/xml/ns/jakartaee" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd" id="WebApp_ID" version="5.0">
+<display-name>InsuranceForm</display-name>
+<welcome-file-list>
+  <welcome-file>index.html</welcome-file>
+  <welcome-file>index.jsp</welcome-file>
+  <welcome-file>index.htm</welcome-file>
+  <welcome-file>default.html</welcome-file>
+  <welcome-file>default.jsp</welcome-file>
+  <welcome-file>default.htm</welcome-file>
+</welcome-file-list>
+<servlet>
+  <description></description>
+  <display-name>Claim</display-name>
+  <servlet-name>Claim</servlet-name>
+  <servlet-class>Claim</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>Claim</servlet-name>
+  <url-pattern>/Claim</url-pattern>
+</servlet-mapping>
+</web-app>
