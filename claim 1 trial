@@ -1,0 +1,48 @@
+import java.io.IOException;
+import java.io.PrintWriter;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
+public class Claim extends HttpServlet {
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+        out.println("<html>");
+        out.println("<head><title>Unsupported Method</title></head>");
+        out.println("<body>");
+        out.println("<h1>GET method is not supported for this URL. Please submit the form using POST method.</h1>");
+        out.println("</body>");
+        out.println("</html>");
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int claimnumber = Integer.parseInt(request.getParameter("claimnumber"));
+        String description = request.getParameter("description");
+
+        response.setContentType("text/html");
+        PrintWriter out = response.getWriter();
+
+        if (claimnumber != 0) {
+            out.println("<html>");
+            out.println("<head><title>Insurance Claim Submitted</title></head>");
+            out.println("<body>");
+            out.println("<h1>Claim Submitted Successfully</h1>");
+            out.println("<p>Claim Number: " + claimnumber + "</p>");
+            out.println("<p>Description: " + description + "</p>");
+            out.println("</body>");
+            out.println("</html>");
+        } else {
+            out.println("<html>");
+            out.println("<head><title>Claim Rejected</title></head>");
+            out.println("<body>");
+            out.println("<h1>Sorry, Claim Rejected</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+}
